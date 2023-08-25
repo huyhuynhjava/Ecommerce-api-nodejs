@@ -1,6 +1,6 @@
 import AsyncHandler from "express-async-handler";
 import Brand from "../model/Brand.js";
-import Color from "../model/color.js";
+import Color from "../model/Color.js";
 
 //@desc create a new color
 //@route // GET api/v1/colors
