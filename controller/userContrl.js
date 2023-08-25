@@ -19,7 +19,7 @@ export const registerUserCtrl = AsyncHandler(async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashpassword = await bcrypt.hash(password, salt);
     //create user
-    const user = await User.create({ fullname, email, password: hashpassword });
+    const user = await User.create({ fullname, email:email.toLowerCase(), password: hashpassword });
     res.status(201).json({
       status: "success",
       msg: "User registerted successfully",
@@ -34,7 +34,7 @@ export const registerUserCtrl = AsyncHandler(async (req, res) => {
 
 export const loginCtrl = AsyncHandler(async (req, res) => {
   const { email, password } = req.body;
-  const userFound = await User.findOne({ email });
+  const userFound = await User.findOne({ email:email.toLowerCase() });
   if (userFound && (await bcrypt.compare(password, userFound?.password))) {
     res.status(200).json({
       status: "success",
